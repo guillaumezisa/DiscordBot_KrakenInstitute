@@ -17,5 +17,5 @@ async def mondieumasecu(ctx):
     await ctx.send('Je vous absous mon enfant')
 
 
-token = 'NjM0NDE5MDQ5MTk5MzA0NzE0.XaiRBw.2RiKR2cLt0-qC0OKVlYwrbORWuU'
+token = ''
 bot.run(token)
