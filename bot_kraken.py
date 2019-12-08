@@ -30,10 +30,10 @@ results = parser.parse_args()
 # COMMAND LINE TRAITMENT -------------------------------------------------------
 if (results.add != None):
     verif = pickle_verify_account(results.add)
-    pickle_add_account(verif)
+    print(pickle_add_account(verif))
 if (results.remove != None):
     verif = pickle_verify_account(results.remove)
-    pickle_remove_account(verif)
+    print(pickle_remove_account(verif))
 if (results.list == True):
     pickle_diplay_accounts()
 if (results.start == True):

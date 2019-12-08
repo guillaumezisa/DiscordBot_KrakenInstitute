@@ -72,3 +72,25 @@ def discord_listener():
 # START TWITTER LISTENER -------------------------------------------------------
 def twitter_listener():
     os.system("./script.py")
+
+# COLLECT AND PREPARE TWITS ----------------------------------------------------
+
+def get_twits(verif):
+    if(os.path.exists("accounts")):
+        os.system("rm "+verif["account"])
+    os.system("wget http://twitter.com/"+verif["account"]+" && mv "+verif["account"]+" "+verif["account"]+"1 && cat "+verif["account"]+"1 |grep TweetTextSize >"+verif["account"] +"2 && rm "+verif["account"]+"1 && cat "+verif["account"]+"2 |grep -oP '(?<=>)[^<]*' > "+verif["account"] +" && rm "+verif["account"]+"2")
+    with open(verif["account"]) as file:
+        data = file.read()
+        array=data.split("&nbsp;")
+        twits=[[verif["account"]]]
+        for i in range(len(array)):
+            twits.append([array[i],0])
+        for i in range(len(twits)):
+            twits[i][0] = twits[i][0].replace('\n','').replace('\';','\'').replace('&#39','\'').replace('http','\nhttp').replace('…','').replace('#','')
+        for i in range(len(twits)):
+            print("")
+            print(twits[i][0])
+            print("")
+
+verif = pickle_verify_account("promenthanol")
+get_twits(verif)
