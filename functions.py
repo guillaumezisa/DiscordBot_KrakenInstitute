@@ -58,9 +58,17 @@ def pickle_diplay_accounts():
         for account in data:
             print(account)
 
-
-# DEBUG FUNCTIONS
+# DEBUG FUNCTIONS PICKLE
 #verif = pickle_verify_account("li")
 #pickle_add_account(verif)
 #pickle_remove_account(verif)
 #pickle_diplay_accounts()
+
+
+# START DISCORD LISTENER -------------------------------------------------------
+def discord_listener():
+    os.system("./bot.py")
+
+# START TWITTER LISTENER -------------------------------------------------------
+def twitter_listener():
+    os.system("./script.py")

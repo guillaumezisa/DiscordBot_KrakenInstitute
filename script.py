@@ -9,16 +9,14 @@ import os
 import sys
 from const import *
 
-print("Bot Online")
+print("Twits Gatherer Online")
 bot = commands.Bot(command_prefix='#')
 
 @bot.command()
-async def ping(ctx):
-    await ctx.send('pong')
-    print("someone ping")
-
-@bot.command()
-async def mondieumasecu(ctx):
-    await ctx.send('Je vous absous mon enfant')
+async def start(ctx):
+    while True:
+        await ctx.send('oooooh')
+        time.sleep(60)
+        print("someone ping")
 
 bot.run(TOKEN)

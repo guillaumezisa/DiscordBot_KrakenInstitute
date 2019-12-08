@@ -5,8 +5,12 @@
 # Executable of the bot discord
 # Version 1
 #-------------------------------------------------------------------------------
+
 from functions import *
 import argparse
+import os
+import threading
+import time
 
 # COMMAND LINE OPTIONS ---------------------------------------------------------
 parser = argparse.ArgumentParser()
@@ -23,7 +27,7 @@ results = parser.parse_args()
 # COMMAND LINE OPTIONS DEBUG ---------------------------------------------------
 #print(' add', results.add, '\n','remove', results.remove, '\n','list', results.list, '\n', 'start', results.start)
 
-# COMMAND LINE TRAITMENT
+# COMMAND LINE TRAITMENT -------------------------------------------------------
 if (results.add != None):
     verif = pickle_verify_account(results.add)
     pickle_add_account(verif)
@@ -33,4 +37,8 @@ if (results.remove != None):
 if (results.list == True):
     pickle_diplay_accounts()
 if (results.start == True):
-    print("ok")
+    thread_discord = threading.Thread(None, discord_listener)
+    thread_discord.start()
+    time.sleep(1)
+    thread_twitter = threading.Thread(None, twitter_listener)
+    thread_twitter.start()
