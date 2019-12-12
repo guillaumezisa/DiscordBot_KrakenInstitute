@@ -73,24 +73,56 @@ def discord_listener():
 def twitter_listener():
     os.system("./script.py")
 
-# COLLECT AND PREPARE TWITS ----------------------------------------------------
+# COLLECT & PREPARE TWITS ------------------------------------------------------
 
 def get_twits(verif):
-    if(os.path.exists("accounts")):
+    pickle=[]
+    if(os.path.exists(verif["account"])):
         os.system("rm "+verif["account"])
-    os.system("wget http://twitter.com/"+verif["account"]+" && mv "+verif["account"]+" "+verif["account"]+"1 && cat "+verif["account"]+"1 |grep TweetTextSize >"+verif["account"] +"2 && rm "+verif["account"]+"1 && cat "+verif["account"]+"2 |grep -oP '(?<=>)[^<]*' > "+verif["account"] +" && rm "+verif["account"]+"2")
+    os.system("wget http://twitter.com/"+verif["account"]+" > /dev/null 2>&1 && mv "+verif["account"]+" "+verif["account"]+"1 && cat "+verif["account"]+"1 |grep TweetTextSize >"+verif["account"] +"2 && rm "+verif["account"]+"1 && cat "+verif["account"]+"2 |grep -oP '(?<=>)[^<]*' > "+verif["account"] +" && rm "+verif["account"]+"2")
     with open(verif["account"]) as file:
         data = file.read()
         array=data.split("&nbsp;")
-        twits=[[verif["account"]]]
+        twits=[]
         for i in range(len(array)):
             twits.append([array[i],0])
         for i in range(len(twits)):
             twits[i][0] = twits[i][0].replace('\n','').replace('\';','\'').replace('&#39','\'').replace('http','\nhttp').replace('…','').replace('#','')
         for i in range(len(twits)):
-            print("")
-            print(twits[i][0])
-            print("")
+            if (twits[i][0] != ""):
+                pickle.append(twits[i])
+        return pickle
 
-verif = pickle_verify_account("promenthanol")
-get_twits(verif)
+# VERIFY TWIT EXIST & ADD TO PICKLE --------------------------------------------
+
+def verify_twits(array):
+    if(os.path.exists("twits.db")):
+        with open("twits.db", "rb") as db:
+            data = pickle.load(db)
+            for i in range(len(array)):
+                flag = False
+                count= 0
+                for y in range(len(data)):
+                    if (array[i][0] == data[y][0]):
+                        flag = True
+                if ( flag == False ):
+                    data.append(array[i])
+
+    # DB IS NOT CREATED --------------------------------------------------------
+    else :
+        data=array
+        os.system("touch twits.db")
+    pickle.dump(data, open( "twits.db", "wb" ))
+
+
+# DEBUG PICKLE -----------------------------------------------------------------
+def debug_pickle(path):
+    with open(path, "rb") as db:
+        data = pickle.load(db)
+        for i in range(len(data)):
+            print(data[i])
+            print(" ")
+
+#verif = pickle_verify_account("tyr08599594")
+#verify_twits(get_twits(verif))
+#debug_pickle("twits.db")

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import discord
-import time
+from time import *
 import asyncio
 from discord.ext import commands
 import pickle
@@ -15,7 +15,10 @@ bot = commands.Bot(command_prefix='#')
 @bot.command()
 async def ping(ctx):
     await ctx.send('pong')
-    print("someone ping")
+
+@bot.command()
+async def start(ctx):
+    await ctx.send('start')
 
 @bot.command()
 async def mondieumasecu(ctx):
