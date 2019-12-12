@@ -59,7 +59,7 @@ def pickle_diplay_accounts():
             print(account)
 
 # DEBUG FUNCTIONS PICKLE
-#verif = pickle_verify_account("li")
+#verif = pickle_verify_account("accountname")
 #pickle_add_account(verif)
 #pickle_remove_account(verif)
 #pickle_diplay_accounts()
@@ -123,6 +123,6 @@ def debug_pickle(path):
             print(data[i])
             print(" ")
 
-#verif = pickle_verify_account("tyr08599594")
+#verif = pickle_verify_account("accountname")
 #verify_twits(get_twits(verif))
 #debug_pickle("twits.db")
